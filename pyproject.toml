@@ -1,0 +1,20 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "worldsim-personal-progression"
+version = "0.1.0"
+description = "Updates player progression: attributes, skills, reputation, inventory, condition."
+requires-python = ">=3.11"
+dependencies = [
+    "pydantic>=2.5",
+    "worldsim-schemas",
+    "worldsim-prompts",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=7"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/worldsim_personal_progression"]
