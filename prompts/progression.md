@@ -75,10 +75,14 @@ JSON:
 
 ### 6. Состояние
 
+Допустимые значения `condition` — **строго** одно из четырёх:
+`"ok"` | `"tired"` | `"wounded"` | `"exhausted"`. Никаких других строк.
+
 - Рискованные действия (risk_level = high) и неудачный исход →
-  `condition: tired` или `wounded`.
-- Состояние может меняться вниз (`wounded` → `tired` → `ok`) только
-  при описанном отдыхе в `world_change_summary`.
+  `"tired"` или `"wounded"`.
+- Очень тяжёлые последствия (серьёзное ранение, долгий бой) → `"exhausted"`.
+- Состояние улучшается (`wounded` → `tired` → `ok`) только при описанном
+  отдыхе в `world_change_summary`.
 
 ### 7. Чего НЕ делай
 
@@ -92,9 +96,9 @@ JSON:
 ```json
 {
   "world_changes": [
-    {"entity_type": "player", "id": "<character_id>",
+    {"entity_type": "player_progression", "id": "_",
      "field": "skill_counters.empathy_uses", "op": "set", "value": 6},
-    {"entity_type": "player", "id": "<character_id>",
+    {"entity_type": "player_progression", "id": "_",
      "field": "attributes.empathy", "op": "set", "value": 0.55}
   ],
   "new_facts": [],
@@ -103,7 +107,7 @@ JSON:
 }
 ```
 
-- Все `entity_type` **только** `"player"`. Id — `character_id` игрока.
+- Все `entity_type` **только** `"player_progression"`. Id — всегда `"_"`.
 - `new_facts` — пусто (факты мира — это мир).
 - `timeline_event` — `null`.
 - `narrative_summary` — пустая строка.

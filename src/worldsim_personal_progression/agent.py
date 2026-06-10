@@ -15,6 +15,8 @@ from typing import Any
 from worldsim_prompts import AnthropicClient, call_json, load_prompt
 from worldsim_schemas import TurnPatch
 
+_VALID_CONDITIONS = {"ok", "tired", "wounded", "exhausted"}
+
 _PROMPTS = Path(__file__).parent.parent.parent / "prompts"
 
 
@@ -42,8 +44,12 @@ def run(
         temperature=0.3,
     )
 
-    # Жёсткий фильтр: оставляем только entity_type='player'.
-    safe_changes = [c for c in patch.world_changes if c.entity_type == "player"]
+    # Фильтр: только player_progression, без невалидных condition.
+    safe_changes = [
+        c for c in patch.world_changes
+        if c.entity_type == "player_progression"
+        and not (c.field == "condition" and c.value not in _VALID_CONDITIONS)
+    ]
     patch.world_changes = safe_changes
     patch.new_facts = []
     patch.timeline_event = None

@@ -11,7 +11,7 @@
 - Пишет **только** `player_progression.*`. Любой патч на
   `character`/`location`/`faction`/`arc`/`secret` — нарушение.
   Это зона `world-builder`.
-- Поле `entity_type` в патчах = `"player"`.
+- Поле `entity_type` в патчах = `"player_progression"`, id = `"_"`.
 
 ## Инварианты
 
